@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Currency Exchange</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .keyboard {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    input {
+      font-size: 18px;
+      padding: 10px;
+      margin: 5px;
+      width: 200px;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 8px;
+      cursor: pointer;
+    }
+
+    button.convert {
+      background-color: #4caf50;
+      color: white;
+    }
+
+    button.copy {
+      margin-right: 10px;
+      padding: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div>
+    <label for="fromAmount">From Amount:</label>
+    <input type="text" id="fromAmount" readonly onfocus="setFocusedInput(this)">
+  </div>
+
+  <div>
+    <label for="toAmount">To Amount:</label>
+    <input type="text" id="toAmount" readonly onfocus="setFocusedInput(this)">
+  </div>
+
+  <div class="keyboard" onclick="handleKeyClick(event)">
+    <button>1</button>
+    <button>2</button>
+    <button>3</button>
+    <button>4</button>
+    <button>5</button>
+    <button>6</button>
+    <button>7</button>
+    <button>8</button>
+    <button>9</button>
+    <button>0</button>
+    <button>.</button>
+    <button onclick="clearAmount()">C</button>
+  </div>
+
+  <button class="convert" onclick="convertAmount()">Convert</button>
+  <button class="copy" onclick="copyToClipboard()">Copy Code</button>
+
+  <script>
+    let focusedInput = null;
+
+    function setFocusedInput(input) {
+      focusedInput = input;
+    }
+
+    function handleKeyClick(event) {
+      if (event.target.tagName === 'BUTTON' && focusedInput) {
+        const key = event.target.innerText;
+        if (key === 'C') {
+          clearAmount();
+        } else {
+          appendToAmount(key);
+        }
+      }
+    }
+
+    function appendToAmount(value) {
+      focusedInput.value += value;
+    }
+
+    function clearAmount() {
+      if (focusedInput) {
+        focusedInput.value = '';
+      }
+    }
+
+    function convertAmount() {
+      // Placeholder logic for conversion, replace with actual logic
+      alert('Conversion logic will go here');
+    }
+
+    function copyToClipboard() {
+      const code = document.documentElement.outerHTML;
+      navigator.clipboard.writeText(code).then(() => {
+        alert('Code copied to clipboard!');
+      }).catch(err => {
+        console.error('Failed to copy code: ', err);
+      });
+    }
+  </script>
+
+</body>
+
+</html>
